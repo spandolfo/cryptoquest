@@ -1,49 +1,41 @@
 'use client'
 
-import * as React from 'react'
-import { 
-  type BaseError, 
-  useWaitForTransactionReceipt, 
-  useWriteContract 
-} from 'wagmi'
+import { useState } from 'react';
+import { useReadContract } from 'wagmi';
+import { BaseError } from 'viem';
 
-export default function Mint() {
+import { type Address } from "viem";
 
-  const { 
-    data: hash,
-    error, 
-    isPending, 
-    writeContract 
-  } = useWriteContract() 
+import { soulAbi } from '../lib/evm/generated'
 
-  async function submit(e: React.FormEvent<HTMLFormElement>) { 
-    e.preventDefault() 
-    const formData = new FormData(e.target as HTMLFormElement) 
-    const tokenId = formData.get('tokenId') as string 
+export const wagmiContractConfig = {
+  address: '0x5fc8d32690cc91d4c39d9d3abcbd16989f875707' as `0x${string}`,
+  abi: soulAbi,
+}
 
-  } 
+export default function ReadContract() {
+  return (
+    <div>
+      <div>
+        <TotalSupply />
+      </div>
+    </div>
+  );
+}
 
-  const { isLoading: isConfirming, isSuccess: isConfirmed } = 
-    useWaitForTransactionReceipt({ 
-      hash, 
-    }) 
+const TotalSupply = () => {
+  const { data, isRefetching, refetch } = useReadContract({
+    ...wagmiContractConfig,
+    functionName: 'totalSupply',
+  });
 
   return (
-    <form onSubmit={submit}>
-      <input name="address" placeholder="0xA0Cf…251e" required />
-      <input name="value" placeholder="0.05" required />
-      <button 
-        disabled={isPending} 
-        type="submit"
-      >
-        {isPending ? 'Confirming...' : 'Mint'} 
+    <div>
+      Total Supply: {data?.toString()}
+      <button disabled={isRefetching} onClick={() => refetch()} style={{ marginLeft: 4 }}>
+        {isRefetching ? '(loading...)' : '(refetch)'}
       </button>
-      {hash && <div>Transaction Hash: {hash}</div>}
-      {isConfirming && <div>Waiting for confirmation...</div>} 
-      {isConfirmed && <div>Transaction confirmed.</div>} 
-      {error && ( 
-        <div>Error: {(error as BaseError).shortMessage || error.message}</div> 
-      )} 
-    </form>
-  )
-}
+    </div>
+  );
+};
+
