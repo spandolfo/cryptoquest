@@ -1,14 +1,12 @@
 "use client"
 
 import { WagmiProvider, createConfig } from "wagmi";
-import { getClient, getConnectorClient } from '@wagmi/core' 
 import { mainnet, confluxESpace, hardhat } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { type ReactNode } from 'react'
 import { NextUIProvider } from '@nextui-org/react'
 import  CustomAvatar from "../components/customAvatar"
-// import { injected, metaMask, walletConnect } from 'wagmi/connectors' 
 
 const config = createConfig(
   getDefaultConfig({
