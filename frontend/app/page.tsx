@@ -39,7 +39,7 @@ export default function Home() {
     const to = formData.get('address') as `0x${string}` 
     const value = formData.get('value') as string 
     // sendTransaction({ to, value: parseEther(value) }) 
-    // console.log(await contract.read.totalSupply())
+    console.log(await contract.read.totalSupply())
     
     // console.log(contract)
 
