@@ -10,8 +10,9 @@ import { tokenAbi } from './lib/generated'
 import { useClient, useConnectorClient } from 'wagmi'
 import { hardhat } from 'viem/chains'
 
+import { type UseWalletClientReturnType } from 'wagmi'
 
-
+import { type Client } from 'viem'
 
 
 export default function Home() {
@@ -28,7 +29,7 @@ export default function Home() {
   const contract = getContract({
     address: '0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0',
     abi: tokenAbi,
-    client: { public: publicClient, wallet: walletClient }
+    client: { public: publicClient!, wallet: walletClient }
   })
 
 
@@ -38,7 +39,7 @@ export default function Home() {
     const to = formData.get('address') as `0x${string}` 
     const value = formData.get('value') as string 
     // sendTransaction({ to, value: parseEther(value) }) 
-    console.log(await contract.read.totalSupply())
+    // console.log(await contract.read.totalSupply())
     
     // console.log(contract)
 

@@ -30,17 +30,6 @@ const config = createConfig(
 );
 
 const queryClient = new QueryClient();
-// const publicClient = getClient(config)
-// const walletClient = getConnectorClient(config)
-// import { getContract } from 'viem' 
-// import { soulAbi } from './generated'
-// const contract = getContract({
-//   address: '0x5fbdb2315678afecb367f032d93f642f64180aa3',
-//   abi: soulAbi,
-//   client: walletClient,
-// })
-
-// console.log(contract.write.safeMint(['0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266']))
 
 export const Web3Provider = (props: { children: ReactNode }) => {
   return (

@@ -6,7 +6,6 @@ import {
   useWaitForTransactionReceipt, 
   useWriteContract 
 } from 'wagmi'
-import { soulAbi } from '../lib/generated'
 
 export default function Mint() {
 
@@ -21,12 +20,7 @@ export default function Mint() {
     e.preventDefault() 
     const formData = new FormData(e.target as HTMLFormElement) 
     const tokenId = formData.get('tokenId') as string 
-    writeContract({
-      address: '0x5fbdb2315678afecb367f032d93f642f64180aa3',
-      soulAbi,
-      functionName: 'safeMint',
-      args: ['0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'],
-    })
+
   } 
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } = 
